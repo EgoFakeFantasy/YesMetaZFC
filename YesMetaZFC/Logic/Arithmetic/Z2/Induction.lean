@@ -114,16 +114,25 @@ private theorem mem_induction {Δ : SortContext signature_m} {T : Theory signatu
     Derives.theory_axiom (hZ₂ axiom_m.set_induction)
   exact Derives.forall_elim (.fvar .here) h
 
-/-- 完整公式归纳是实际对象推导，对任意扩张及局部上下文均成立。 -/
-theorem induction_derives_m {T : Theory signature_m} (hZ₂ : Theory.Extends T theory_m)
+/-- 给定一个理解实例及集合归纳即可传回正文归纳，不要求完整 Z₂。 -/
+theorem induction_of_comprehension_m {T : Theory signature_m}
     {Δ : SortContext signature_m} {Γ : Context signature_m Δ}
-    (φ : Formula signature_m [] (.num :: Δ)) : Derives T Γ (induction_m φ) := by
-  have h₀ := comprehension_derives_m hZ₂ (Γ := []) φ
+    (φ : Formula signature_m [] (.num :: Δ))
+    (h₀ : Derives T [] (comprehension_m φ))
+    (hᵢ : Derives T ([] : Context signature_m (.set :: Δ))
+      (induction_m (mem_m (.fvar .here) (.fvar (.there .here))))) :
+    Derives T Γ (induction_m φ) := by
   have h₁ : Derives T [] (induction_m φ) := by
     apply Derives.exists_elim h₀
     rw [← insert_induction]
-    exact induction_congr_m (Derives.assumption List.mem_cons_self) (mem_induction hZ₂)
+    exact induction_congr_m (Derives.assumption List.mem_cons_self) (Derives.of_provable hᵢ)
   exact Derives.of_provable h₁
+
+/-- 完整公式归纳是实际对象推导，对任意扩张及局部上下文均成立。 -/
+theorem induction_derives_m {T : Theory signature_m} (hZ₂ : Theory.Extends T theory_m)
+    {Δ : SortContext signature_m} {Γ : Context signature_m Δ}
+    (φ : Formula signature_m [] (.num :: Δ)) : Derives T Γ (induction_m φ) :=
+  induction_of_comprehension_m φ (comprehension_derives_m hZ₂ φ) (mem_induction hZ₂)
 
 theorem induction_rule_m {T : Theory signature_m} (hZ₂ : Theory.Extends T theory_m)
     {Δ : SortContext signature_m} {Γ : Context signature_m Δ}

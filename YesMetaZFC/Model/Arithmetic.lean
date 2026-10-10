@@ -12,6 +12,7 @@ import YesMetaZFC.Model.Arithmetic.PA.Unpairing
 import YesMetaZFC.Model.Arithmetic.PA.FiniteRange
 import YesMetaZFC.Model.Arithmetic.Order
 import YesMetaZFC.Model.Arithmetic.Z2.Standard
+import YesMetaZFC.Model.Arithmetic.Comprehension
 import YesMetaZFC.Model.Arithmetic.Z2.Reduct
 import YesMetaZFC.Model.Arithmetic.Z2.Minimum
 import YesMetaZFC.Model.Arithmetic.Z2.FiniteRange

@@ -1,6 +1,21 @@
 # 算术理论
 
 本目录提供独立 Q/PA 及双排序 Z₂ 的最小语言、公理模式和对象推导。
+分析理解子系统由 `Comprehension.Induction` 提供：
+`Comprehension.theory_m n` 是 Π¹ₙ-CA₀，`aca0_m`、`pi11_ca0_m`、
+`pi12_ca0_m` 分别是 ACA₀、Π¹₁-CA₀、Π¹₂-CA₀。公理保留数目公理、
+集合外延和集合归纳，只限制理解正文；不另加入全公式归纳或选择公理。
+`Hierarchy` 中算术矩阵允许任意数目量词和自由数集参数；分析公式使用
+至多 n 个交替数集量词块，同类块长度任意有限。自由和绑定变量重命名保持
+复杂度，新理解见证槽不会进入正文。归纳接口必须提供相应的理解证书。
+定义参照 Simpson《Subsystems of Second Order Arithmetic》I.5.1–I.5.2，
+沿用现有双排序一阶呈现及定义性集合等号。层级判据识别前束代表，
+不自动把任意模型等价或数目／集合量词交换视为复杂度证书。
+`extends_m` 给出层级单调性，`z2_extends_m` 给出在 Z₂ 中的公理包含。
+对象模式的调用终点是原 `Derives`；辅助模型接口及 Lean 元层标准模型
+一致性由 `YesMetaZFC.Model.Arithmetic.Comprehension` 单独提供。
+`Comprehension.pa_derives_m` 保留原 PA 翻译和局部上下文，将全部 PA 推导
+传入任意一级 CA₀ 扩张；其公理验证只使用算术理解与集合归纳。
 `import YesMetaZFC.Logic.Arithmetic` 导入数码计算、PA 归纳、Z₂ 完整理解及其导出的全公式归纳。
 模型性、任意模型中的可定义归纳及标准模型一致性从 `YesMetaZFC.Model.Arithmetic` 单独导入。
 只需要 PA 时可导入 `YesMetaZFC.Logic.Arithmetic.PA.Induction`，不引入 Z₂。

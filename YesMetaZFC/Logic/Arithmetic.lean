@@ -13,6 +13,8 @@ import YesMetaZFC.Logic.Arithmetic.PA.StrictOrder
 import YesMetaZFC.Logic.Arithmetic.Z2.Induction
 import YesMetaZFC.Logic.Arithmetic.Z2.Order
 import YesMetaZFC.Logic.Arithmetic.Z2.Beta
+import YesMetaZFC.Logic.Arithmetic.Comprehension.Induction
+import YesMetaZFC.Logic.Arithmetic.Comprehension.PA
 import YesMetaZFC.Logic.Arithmetic.PA.Interpretation
 import YesMetaZFC.Logic.Arithmetic.PrimitiveRecursive.Formula
 import YesMetaZFC.Logic.Arithmetic.PrimitiveRecursive.Closure
