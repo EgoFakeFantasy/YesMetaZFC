@@ -1,7 +1,5 @@
 # 算术子库接口与来源
 
-> 文中旧基点的构建数量、耗时和扫描器结果属于历史证据。当前主项目已移出通用证明器；当前边界与验证见 [PROVER_SPLIT.md](PROVER_SPLIT.md)。
-
 Q、PA、Z₂ 核心、内部有限编码和逐程序原始递归表示已经实现。
 Π¹ₙ-CA₀（含 ACA₀、Π¹₁-CA₀、Π¹₂-CA₀）现由
 `Logic.Arithmetic.Comprehension` 提供受限公理模式、理解／归纳推导、层级包含
@@ -104,7 +102,7 @@ PA 和 Z₂ 最终入口用各自的真实公式填满归纳义务；抽象规�
 递归步使用输入配对 x,(i,y)。外层按宿主有限程序语法归纳，内部步数则由实际历史公式归纳。
 此处 `∀ c : code_m` 不是模型内部所有程序码的统一总性／真值断言。
 七构造闭包是明确的配对式原始递归呈现，未接 Mathlib `Nat.Primrec` 的跨库桥；
-不引入无界最小化，不宣称已经形式化算术层级、RCA₀/ACA₀ 或 BMS 良序性。
+不引入无界最小化；上述原始递归表示接口本身不构成 RCA₀ 或 BMS 良序性证明。
 
 ## 来源与重构
 
@@ -138,42 +136,3 @@ PA 和 Z₂ 最终入口用各自的真实公式填满归纳义务；抽象规�
 图公式、可执行求值、标准正确性、任意模型总性和对象可推导性分别提供。
 沿用上游 AST、替换、推导核、可靠性和完备性，不维护第二套逻辑系统。
 旧 BMS 仓库及其公开接口未修改。
-
-## 验证
-
-此前 Q／PA／Z₂ 基线切片：96 个 Lean 文件，5,457 行（含空行及注释），439 个显式公开声明。
-关系接口重构后的联合构建 152 jobs，退出码 0、无警告；公开声明公理审计通过。
-公理依赖并集仅 `propext`、`Classical.choice`、`Quot.sound`，禁止标记／依赖为空，审计前后源码哈希一致。
-数据边界审计另按实际所属模块检查 1,165 个声明，包含私有及编译器生成声明，
-不按公开名称猜测归属；未发现 `noncomputable` 声明或新增公理。
-生成声明的公理传递依赖仍由公开声明审计覆盖。
-
-仓库内可复跑命令：
-
-```bash
-python scripts/lean_cache.py build --native
-python scripts/test_arithmetic_guard.py
-python scripts/check_arithmetic.py
-```
-
-CI 枚举全部独立模块（包括可选 Provability），随后测试并执行算术公理／数据边界审计。
-`check_arithmetic.py` 自身也先构建全部算术模块，不能只凭旧缓存通过。
-边界测试覆盖命题内经典推理、直接数据选择、私有数据选择、其他命名空间及新增公理。
-本轮证据位于工作区 `outputs/yesmetazfc-arithmetic/choice-relational-audit.log`、
-`choice-guard-tests.log`；后述 Stage 4a 文件是迁移前的历史证据。
-重构后全仓 1,100 个模块及原生目标亦已通过增量构建，证据为 `choice-native-build.log`；
-5 项数据边界正反例和 19 项缓存脚本测试通过。未作全仓冷构建。
-外部开发证据位于工作区 `outputs/yesmetazfc-arithmetic/`：
-`stage4a-final-build.log`、`stage4a-consumer.log`、`stage4a-audit.json`、`stage4a-portable-audit.log`。
-一次性消费者与失败日志不进入正式库；历史分批证据仍保留在该目录。
-
-全仓／原生构建已在 Windows 上通过：枚举 1,100 个 Lean 模块及其原生对象，
-并校验静态库、共享库与扫描器。原有模块复用上游基点的官方 full 缓存，
-先在独立基线核对提交、平台、工具链、源码指纹、归档 SHA-256 及全部 no-build 目标；
-确认本次未修改上游原有 Lean 源码或构建配置后，只补入缺失产物，不覆盖本地产物。
-新增算术证明在本机编译；这不是一次完整冷构建。证据为 `complete-native-cached-build.log`。
-
-扫描器帮助与单目标扫描均正常退出；实际目标 `SetTheory.Ordinal.transitive` 的结果仍是
-`not_closed`，不把工具运行成功解释为新增自动证明能力。19 项缓存／发布脚本测试通过。
-本地验证不替代 GitHub 多平台 CI；远端工作流仍受维护者的 fork 运行批准控制。
-贡献通过现有上游 PR #1，不直接推送上游 main、不自行合并。

@@ -61,5 +61,5 @@ Z₂ 使用多排序一阶呈现，标准全数集模型的存在不等于 Full 
 签名、公理、对象推导放本目录；标准模型与任意模型的语义对应放 `YesMetaZFC/Model/Arithmetic/`。
 使用现有 Lake 库，不另建嵌套工程，不导入 BMS 或 Mathlib。
 
-接口、来源和本批验证见[实作说明](../../../markdown/ARITHMETIC_STATUS.md)，后续见[实施计划](../../../markdown/ARITHMETIC_PLAN.md)。
+接口与来源见[实作说明](../../../markdown/ARITHMETIC_STATUS.md)，后续见[实施计划](../../../markdown/ARITHMETIC_PLAN.md)。
 命名与 agent 协作遵循[上游规范](../../../markdown/AGENTS.md)和[命名规则](../../../markdown/ProofNaming.md)。
