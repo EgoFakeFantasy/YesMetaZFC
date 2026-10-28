@@ -8,6 +8,7 @@ import YesMetaZFC.SetTheory.InnerModel.GCH
 import YesMetaZFC.SetTheory.InnerModel.Jensen.Definable
 import YesMetaZFC.SetTheory.InnerModel.OD
 import YesMetaZFC.SetTheory.InnerModel.HOD
+import YesMetaZFC.SetTheory.InnerModel.FiniteTruth
 
 /-! # 内模型技术的共同基础
 
